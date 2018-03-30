@@ -55,12 +55,15 @@ class TEDExtract(object):
     '''
     This method is used to receive all 
     '''
+    print("Reading talks of \'{}\'".format(path))
     content = urllib.request.urlopen(path).read()
     soup = BeautifulSoup(content)
     talks = soup.find_all("a", class_='ga-link')
     for i in talks:
       if i.attrs['href'].find('/talks/') == 0 and self.all_talks.get(i.attrs['href']) != 1:
         self.all_talks[i.attrs['href']] = 1
+
+    sleep(10)
     
   def _fetch_talk_content(self, conn, hdr, talk):
     '''
