@@ -63,7 +63,7 @@ class TEDExtract(object):
       if i.attrs['href'].find('/talks/') == 0 and self.all_talks.get(i.attrs['href']) != 1:
         self.all_talks[i.attrs['href']] = 1
 
-    sleep(10)
+    sleep(self.args.delay)
     
   def _fetch_talk_content(self, conn, hdr, talk):
     '''
@@ -108,6 +108,6 @@ class TEDExtract(object):
         # This break is necessary, otherwise we'll receive a 429. THere would be
         # a potential wordaround as noted by the commented out code snippets, but
         # unfortunately this is not working
-        sleep(10)
+        sleep(self.args.delay)
 
     df.to_csv(os.path.join(self.args.output, talkname + '.csv'), sep='\t', encoding='utf-8')

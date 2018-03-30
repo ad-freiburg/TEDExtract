@@ -23,6 +23,12 @@ def main():
     default=76,
     help='The number of pages to extract'
   )
+  parser.add_argument(
+    '--delay',
+    type=int,
+    default=10,
+    help='Time delay between the single requests.'
+  )
 
   args = parser.parse_args()
 
