@@ -16,6 +16,13 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from six.moves import cPickle
 
+drop_out_lines = [
+  "Subscribe to receive email notifications whenever new talks are published.",
+  "Thanks! Please check your inbox for a confirmation email. ",
+  "If you want to get even more from TED, like the ability to save talks to watch later, sign up for a TED account now. ",
+  "TED.com translations are made possible by volunteer translators. Learn more about the Open Translation Project."
+]
+
 class TEDExtract(object):
   '''
   Simple ted extraction tool. Returns csv files for all transcripts of 
@@ -110,8 +117,11 @@ class TEDExtract(object):
 
             if temo[0] == ' ':
               temo = temo[1:]
-            
-            text_talk.append(temo)
+
+            if temo in drop_out_lines:
+              pass
+            else:
+              text_talk.append(temo)
           df1 = pd.DataFrame()
           df1[lang] = text_talk
           df = pd.concat([df,df1],axis=1)
