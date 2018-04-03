@@ -1,6 +1,6 @@
 # TEDExtract
 
-A small test crawler for TED talks. 
+A small test crawler for TED talks. For each talk on ted.com all transcripts of all talks will be downloaded and saved within a separate file.
 
 ## Requirements
 
