@@ -15,7 +15,6 @@ import glob
 import argparse
 
 import pandas as pd
-import numpy as np 
 
 def combine_csvs(input_dir, outname):
   '''

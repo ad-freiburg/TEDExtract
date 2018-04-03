@@ -94,7 +94,6 @@ class TEDExtract(object):
       #conn.request('GET', talk + '/transcript', headers=hdr)
       #req = conn.getresponse().read()
       print("Search URL: {}".format(talk + '/transcript'))
-      print("Result: {}".format(req))
       soup = BeautifulSoup(req)
 
       df = pd.DataFrame()
