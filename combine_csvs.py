@@ -17,23 +17,9 @@ import argparse
 import pandas as pd
 import numpy as np 
 
-
-if __name__ == '__main__':
-  parser = argparse.ArgumentParser()
-
-  parser.add_argument(
-    '--input_dir',
-    type=str,
-    help='The directory containing all csv files.'
-  )
-  parser.add_argument(
-    '--outname',
-    type=str,
-    help='The name of the output file (can include a directionry name'
-  )
-
-  args = parser.parse_args()
-
+def combine_csvs(input_dir, outname):
+  '''
+  '''
   csv_files = glob.glob(os.path.join(args.input_dir, '*.csv'))
 
   dff = pd.DataFrame()
@@ -62,3 +48,21 @@ if __name__ == '__main__':
 
     # And save as csv
     ddff.to_csv(args.outname + '.' + col_name + '.csv', sep='\t', encoding='utf-8')
+
+if __name__ == '__main__':
+  parser = argparse.ArgumentParser()
+
+  parser.add_argument(
+    '--input_dir',
+    type=str,
+    help='The directory containing all csv files.'
+  )
+  parser.add_argument(
+    '--outname',
+    type=str,
+    help='The name of the output file (can include a directionry name'
+  )
+
+  args = parser.parse_args()
+
+  combine_csvs(args.input_dir, args.outname)
