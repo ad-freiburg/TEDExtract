@@ -77,7 +77,8 @@ class TEDExtract(object):
     soup = BeautifulSoup(content)
     talks = soup.find_all("a", class_='ga-link')
     for i in talks:
-      if i.attrs['href'].find('/talks/') == 0 and self.all_talks.get(i.attrs['href']) != 1:
+      if i.attrs['href'].find('/talks/') == 0 and
+        self.all_talks.get(i.attrs['href']) != 1:
         self.all_talks[i.attrs['href']] = 1
 
   def _get_content2(self, uri):
@@ -91,7 +92,8 @@ class TEDExtract(object):
       try:
         resp = self.conn.getresponse()
       except ConnectionError as e:
-        print("Received an error from server, wait for {} seconds.".format(self.args.delay))
+        print("Received an error from server, wait for {} seconds.".format(
+          self.args.delay))
         sleep(self.args.delay)
       else:
         break
@@ -100,6 +102,9 @@ class TEDExtract(object):
     
   def _fetch_talk_content(self, talk):
     '''
+    This method will read all transcriptions of a specific talk, do some
+    cleanup (removing line breaks, etc.) and save everything within a
+    separate csv file.
     '''
     # Extract the talk name
     talkname = talk[7:]
@@ -139,4 +144,8 @@ class TEDExtract(object):
           df1[lang] = text_talk
           df = pd.concat([df,df1],axis=1)
 
-      df.to_csv(os.path.join(self.args.output, talkname + '.csv'), sep='\t', encoding='utf-8')
+      df.to_csv(os.path.join(
+        self.args.output,
+        talkname + '.csv'),
+        sep='\t',
+        encoding='utf-8')

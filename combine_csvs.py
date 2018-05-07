@@ -6,7 +6,8 @@ Markus Näther <naetherm@informatik.uni-freiburg.de>
 '''
 
 '''
-Simple script for looping through many csv Files and concatenating their columns.
+Simple script for looping through many csv Files and concatenating their 
+columns.
 '''
 
 import os
@@ -46,7 +47,10 @@ def combine_csvs(input_dir, outname):
     col_name = col_name[cIdx]
 
     # And save as csv
-    ddff.to_csv(args.outname + '.' + col_name + '.csv', sep='\t', encoding='utf-8')
+    ddff.to_csv(
+      args.outname + '.' + col_name + '.csv',
+      sep='\t',
+      encoding='utf-8')
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
