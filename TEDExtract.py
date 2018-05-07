@@ -80,8 +80,6 @@ class TEDExtract(object):
       if i.attrs['href'].find('/talks/') == 0 and self.all_talks.get(i.attrs['href']) != 1:
         self.all_talks[i.attrs['href']] = 1
 
-    sleep(2)
-
   def _get_content2(self, uri):
     '''
     Reading and returning the content of the provided uri.
@@ -140,10 +138,5 @@ class TEDExtract(object):
           df1 = pd.DataFrame()
           df1[lang] = text_talk
           df = pd.concat([df,df1],axis=1)
-
-          # This break is necessary, otherwise we'll receive a 429. THere would be
-          # a potential wordaround as noted by the commented out code snippets, but
-          # unfortunately this is not working
-          sleep(2)
 
       df.to_csv(os.path.join(self.args.output, talkname + '.csv'), sep='\t', encoding='utf-8')
