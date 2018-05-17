@@ -14,6 +14,8 @@ import http
 from time import sleep
 import pandas as pd
 from bs4 import BeautifulSoup
+import nltk
+from nltk.tokenize import sent_tokenize
 from six.moves import cPickle
 
 import http.client
@@ -77,8 +79,7 @@ class TEDExtract(object):
     soup = BeautifulSoup(content)
     talks = soup.find_all("a", class_='ga-link')
     for i in talks:
-      if i.attrs['href'].find('/talks/') == 0 and
-        self.all_talks.get(i.attrs['href']) != 1:
+      if i.attrs['href'].find('/talks/') == 0 and self.all_talks.get(i.attrs['href']) != 1:
         self.all_talks[i.attrs['href']] = 1
 
   def _get_content2(self, uri):
@@ -140,8 +141,16 @@ class TEDExtract(object):
               pass
             else:
               text_talk.append(temo)
+
+          # Split the fetched data into sentences. It could be the case that there are multiple
+          # sentences within one 'p' environment
+          final_text_talk = []
+          for line in text_talk:
+            sent_tokenize_list = sent_tokenize(text)
+            for sent in sent_tokenize_list:
+              final_text_talk.append(sent)
           df1 = pd.DataFrame()
-          df1[lang] = text_talk
+          df1[lang] = final_text_talk
           df = pd.concat([df,df1],axis=1)
 
       df.to_csv(os.path.join(
