@@ -146,7 +146,7 @@ class TEDExtract(object):
           # sentences within one 'p' environment
           final_text_talk = []
           for line in text_talk:
-            sent_tokenize_list = sent_tokenize(text)
+            sent_tokenize_list = sent_tokenize(line)
             for sent in sent_tokenize_list:
               final_text_talk.append(sent)
           df1 = pd.DataFrame()
